@@ -8,17 +8,13 @@
 
 import UIKit
 
-protocol RandomGenerator {
-    func sendRandomResult(result: [Bool])
-}
-
 class HeaderView: UICollectionViewCell {
     
     var delegate: RandomGenerator?
     
     lazy var randomButton: UIButton = {
         let button = UIButton()
-        button.layer.cornerRadius = 5
+        button.layer.cornerRadius = 25
         button.layer.borderWidth = 5
         button.layer.borderColor = UIColor.white.cgColor
         button.backgroundColor = UIColor.clear
@@ -34,7 +30,7 @@ class HeaderView: UICollectionViewCell {
     
     lazy var favoriteButton: UIButton = {
         let button = UIButton()
-        button.layer.cornerRadius = 5
+        button.layer.cornerRadius = 25
         button.layer.borderWidth = 5
         button.layer.borderColor = UIColor.white.cgColor
         button.backgroundColor = UIColor.clear
@@ -48,16 +44,14 @@ class HeaderView: UICollectionViewCell {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-//        printFonts()
+        //        printFonts()
         backgroundColor = UIColor.blue
         setupViews()
     }
     
     func printFonts() {
         let fontFamilyNames = UIFont.familyNames
-        
         for familyName in fontFamilyNames {
-            
             print("Font Family Name = [\(familyName)]")
             let names = UIFont.fontNames(forFamilyName: familyName)
             print("Font Names = [\(names)]")
@@ -75,18 +69,21 @@ class HeaderView: UICollectionViewCell {
     
     @objc func randomButtonDidPressed() {
         var result: [Bool] = []
-        
-        for _ in 1...5 {
-            if(Int(arc4random_uniform(2)) % 2 == 0) {
-                result.append(false)
-            } else {
-                result.append(true)
+        var f = 0
+        while (f < 2 || f == 5) {
+            f = 0
+            result.removeAll()
+            for _ in 1...5 {
+                if(Int(arc4random_uniform(2)) % 2 == 0) {
+                    result.append(false)
+                    f += 1
+                } else {
+                    result.append(true)
+                }
             }
-            print(Int(arc4random_uniform(2)))
         }
-        delegate?.sendRandomResult(result: result)
         
-        print("Random button was pressed")
+        delegate?.sendRandomResult(result: result)
     }
     
     @objc func favoriteButtonDidPressed() {

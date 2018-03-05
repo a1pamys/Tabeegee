@@ -8,10 +8,6 @@
 import UIKit
 import AVFoundation
 
-protocol SliderValueSendable {
-    func sendSliderValue(value: Float, index: Int)
-}
-
 class SoundCell: UICollectionViewCell {
  
     var delegate: SliderValueSendable?
@@ -23,9 +19,7 @@ class SoundCell: UICollectionViewCell {
         backgroundColor = UIColor.clear
         setupViews()
     }
-    
-    
-    
+ 
     lazy var volumeSlider: UISlider = {
         let slider = UISlider()
         slider.thumbTintColor = UIColor.white
@@ -33,26 +27,18 @@ class SoundCell: UICollectionViewCell {
         slider.addTarget(self, action: #selector(sliderDidUsed), for: .valueChanged)
         slider.value = sliderValue
         slider.minimumTrackTintColor = UIColor.white
-//        slider.maximumTrackTintColor = UIColor.lightGray
-//        slider.setThumbImage(UIImage(named: "circle"), for: .normal)
-//        slider.contentMode = .scaleAspectFill
         return slider
     }()
     
     lazy var thumbnailImageView: UIImageView = {
         let imageView = UIImageView()
-        //        imageView.backgroundColor = UIColor.orange
         imageView.translatesAutoresizingMaskIntoConstraints = false
-//        imageView.image = UIImage(named: "rain-w")
         imageView.contentMode = .scaleAspectFit
         return imageView
         
     }()
     
     @objc func sliderDidUsed() {
-        print("sliderDidUsed")
-        print(sliderValue)
-//        sliderValue = volumeSlider.value
         delegate?.sendSliderValue(value: volumeSlider.value, index: cellIndex)
     }
     

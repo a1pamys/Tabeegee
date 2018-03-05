@@ -16,6 +16,8 @@
 		5D1567642046C1F300CBCA3C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 5D1567622046C1F300CBCA3C /* LaunchScreen.storyboard */; };
 		5D15676C2046C25900CBCA3C /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D15676B2046C25900CBCA3C /* MainViewController.swift */; };
 		5D1567752046D87E00CBCA3C /* SoundCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D1567742046D87E00CBCA3C /* SoundCell.swift */; };
+		5D7073E4204D4CEC00EC2AEF /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7073E3204D4CEC00EC2AEF /* Protocols.swift */; };
+		5D7073E6204D4D9100EC2AEF /* Sound.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D7073E5204D4D9100EC2AEF /* Sound.swift */; };
 		5DA12BF4204801A800271B74 /* HeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DA12BF3204801A800271B74 /* HeaderView.swift */; };
 		5DC4E86920495424009EBD01 /* rain.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 5DC4E86820495424009EBD01 /* rain.mp3 */; };
 		5DF312E0204C1F0B00FDB1F2 /* FooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5DF312DF204C1F0B00FDB1F2 /* FooterView.swift */; };
@@ -33,6 +35,8 @@
 		5D1567652046C1F300CBCA3C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		5D15676B2046C25900CBCA3C /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
 		5D1567742046D87E00CBCA3C /* SoundCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundCell.swift; sourceTree = "<group>"; };
+		5D7073E3204D4CEC00EC2AEF /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
+		5D7073E5204D4D9100EC2AEF /* Sound.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Sound.swift; sourceTree = "<group>"; };
 		5DA12BF3204801A800271B74 /* HeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HeaderView.swift; sourceTree = "<group>"; };
 		5DC4E86820495424009EBD01 /* rain.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = rain.mp3; sourceTree = "<group>"; };
 		5DF312DF204C1F0B00FDB1F2 /* FooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FooterView.swift; sourceTree = "<group>"; };
@@ -68,14 +72,11 @@
 		5D1567582046C1F300CBCA3C /* NoisliApp */ = {
 			isa = PBXGroup;
 			children = (
+				5D7073E2204D4CCD00EC2AEF /* Supporting Files */,
 				5DC4E86720495416009EBD01 /* Sounds */,
 				5D15676D2046C30700CBCA3C /* Model */,
 				5D15676E2046C30D00CBCA3C /* View */,
 				5D15676F2046C31100CBCA3C /* Controller */,
-				5D1567592046C1F300CBCA3C /* AppDelegate.swift */,
-				5D1567602046C1F300CBCA3C /* Assets.xcassets */,
-				5D1567622046C1F300CBCA3C /* LaunchScreen.storyboard */,
-				5D1567652046C1F300CBCA3C /* Info.plist */,
 			);
 			path = NoisliApp;
 			sourceTree = "<group>";
@@ -83,6 +84,7 @@
 		5D15676D2046C30700CBCA3C /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				5D7073E5204D4D9100EC2AEF /* Sound.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -103,6 +105,18 @@
 				5D15676B2046C25900CBCA3C /* MainViewController.swift */,
 			);
 			path = Controller;
+			sourceTree = "<group>";
+		};
+		5D7073E2204D4CCD00EC2AEF /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				5D1567592046C1F300CBCA3C /* AppDelegate.swift */,
+				5D7073E3204D4CEC00EC2AEF /* Protocols.swift */,
+				5D1567602046C1F300CBCA3C /* Assets.xcassets */,
+				5D1567622046C1F300CBCA3C /* LaunchScreen.storyboard */,
+				5D1567652046C1F300CBCA3C /* Info.plist */,
+			);
+			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		5DC4E86720495416009EBD01 /* Sounds */ = {
@@ -193,9 +207,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5D7073E6204D4D9100EC2AEF /* Sound.swift in Sources */,
 				5D15675A2046C1F300CBCA3C /* AppDelegate.swift in Sources */,
 				5D15676C2046C25900CBCA3C /* MainViewController.swift in Sources */,
 				5D1567752046D87E00CBCA3C /* SoundCell.swift in Sources */,
+				5D7073E4204D4CEC00EC2AEF /* Protocols.swift in Sources */,
 				5DF312E0204C1F0B00FDB1F2 /* FooterView.swift in Sources */,
 				5DA12BF4204801A800271B74 /* HeaderView.swift in Sources */,
 			);
@@ -327,7 +343,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = NoisliApp/Info.plist;
+				INFOPLIST_FILE = "NoisliApp/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Alpamys.NoisliApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -341,7 +357,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				INFOPLIST_FILE = NoisliApp/Info.plist;
+				INFOPLIST_FILE = "NoisliApp/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = Alpamys.NoisliApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";

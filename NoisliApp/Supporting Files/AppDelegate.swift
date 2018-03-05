@@ -22,7 +22,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window?.backgroundColor = UIColor.clear
         window?.rootViewController = vc
         window?.makeKeyAndVisible()
-        application.statusBarStyle = .lightContent
         
         return true
     }
