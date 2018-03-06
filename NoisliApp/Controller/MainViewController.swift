@@ -68,6 +68,7 @@ class MainViewController: UICollectionViewController {
         cell.delegate = self
         cell.cellIndex = indexPath.row
         cell.sliderValue = sound.volume
+        print("Slider[\(indexPath.row)]: \(cell.sliderValue)")
         if(!sounds![indexPath.row].prepareToPlay!) {
             cell.volumeSlider.isHidden = false
             cell.thumbnailImageView.image = UIImage(named: "\(sound.soundName!)"+"-"+"w")
@@ -122,11 +123,16 @@ extension MainViewController: SliderValueSendable {
 }
 
 extension MainViewController: RandomGenerator {
-    func sendRandomResult(result: [Bool]) {
+    func sendRandomResult(result: [Float]) {
         var i = 0
         print(result)
         while (i < (sounds?.count)!) {
-            sounds![i].prepareToPlay! = result[i]
+            if (result[i] > 0.0) {
+                sounds![i].prepareToPlay! = false
+                sounds![i].volume = result[i]
+            } else {
+                sounds![i].prepareToPlay! = true
+            }
             i += 1
         }
         collectionView?.reloadData()
