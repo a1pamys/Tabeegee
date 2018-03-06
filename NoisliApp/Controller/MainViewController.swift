@@ -13,7 +13,7 @@ class MainViewController: UICollectionViewController {
     
     let cellId = "cellId"
     let headerId = "headerId"
-    var sliderValue: Float = 0
+//    var sliderValue: Float = 0
     var timer = Timer()
     var sounds: [Sound]?
     
@@ -64,19 +64,21 @@ class MainViewController: UICollectionViewController {
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell: SoundCell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! SoundCell
+        let sound = sounds![indexPath.row]
         cell.delegate = self
         cell.cellIndex = indexPath.row
-        cell.sliderValue = sliderValue
+        cell.sliderValue = sound.volume
+        print("Slider[\(indexPath.row)]: \(cell.sliderValue)")
         if(!sounds![indexPath.row].prepareToPlay!) {
             cell.volumeSlider.isHidden = false
-            cell.thumbnailImageView.image = UIImage(named: "\(sounds![indexPath.row].soundName!)"+"-"+"w")
+            cell.thumbnailImageView.image = UIImage(named: "\(sound.soundName!)"+"-"+"w")
             cell.thumbnailImageView.alpha = 0.9
             print("Play: \(indexPath.row)")
             sounds![indexPath.row].audioPlayer!.play()
 //            print(sounds![indexPath.row].audioPlayer!.currentTime)
         } else {
             cell.volumeSlider.isHidden = true
-            cell.thumbnailImageView.image = UIImage(named: "\(sounds![indexPath.row].soundName!)"+"-"+"b")
+            cell.thumbnailImageView.image = UIImage(named: "\(sound.soundName!)"+"-"+"b")
             cell.thumbnailImageView.alpha = 0.4
             sounds![indexPath.row].audioPlayer!.stop()
 //            print(sounds![indexPath.row].audioPlayer!.currentTime)
@@ -115,17 +117,22 @@ extension MainViewController: UICollectionViewDelegateFlowLayout {
 
 extension MainViewController: SliderValueSendable {
     func sendSliderValue(value: Float, index: Int) {
-        sliderValue = value
-        sounds![index].audioPlayer?.setVolume(value, fadeDuration: 1)
+//        sliderValue = value
+        sounds![index].volume = value
     }
 }
 
 extension MainViewController: RandomGenerator {
-    func sendRandomResult(result: [Bool]) {
+    func sendRandomResult(result: [Float]) {
         var i = 0
         print(result)
         while (i < (sounds?.count)!) {
-            sounds![i].prepareToPlay! = result[i]
+            if (result[i] > 0.0) {
+                sounds![i].prepareToPlay! = false
+                sounds![i].volume = result[i]
+            } else {
+                sounds![i].prepareToPlay! = true
+            }
             i += 1
         }
         collectionView?.reloadData()

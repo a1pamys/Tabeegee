@@ -16,6 +16,14 @@ struct Sound {
     var prepareToPlay: Bool?
     var thumbnailImage: String?
     var soundDuration: Int?
+    var volume: Float! {
+        set {
+            self.audioPlayer?.setVolume(newValue, fadeDuration: 1)
+        }
+        get {
+            return self.audioPlayer?.volume
+        }
+    }
     
     init(soundName: String?, audioPlayer: AVAudioPlayer?, prepareToPlay: Bool?, thumbnailImage: String?, soundDuration: Int?){
         self.soundName = soundName

@@ -68,17 +68,18 @@ class HeaderView: UICollectionViewCell {
     }
     
     @objc func randomButtonDidPressed() {
-        var result: [Bool] = []
+        var result: [Float] = []
         var f = 0
         while (f < 2 || f == 5) {
             f = 0
             result.removeAll()
             for _ in 1...5 {
                 if(Int(arc4random_uniform(2)) % 2 == 0) {
-                    result.append(false)
+                    result.append(0.0)
                     f += 1
                 } else {
-                    result.append(true)
+                    let volume = Float(drand48())
+                    result.append(volume)
                 }
             }
         }
