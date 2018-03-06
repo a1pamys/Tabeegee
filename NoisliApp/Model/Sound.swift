@@ -16,6 +16,16 @@ struct Sound {
     var prepareToPlay: Bool?
     var thumbnailImage: String?
     var soundDuration: Int?
+    private var _volume: Float
+    var volume: Float {
+        set {
+            self._volume = newValue
+            self.audioPlayer?.setVolume(newValue, fadeDuration: 1)
+        }
+        get {
+            return self._volume
+        }
+    }
     
     init(soundName: String?, audioPlayer: AVAudioPlayer?, prepareToPlay: Bool?, thumbnailImage: String?, soundDuration: Int?){
         self.soundName = soundName
@@ -23,6 +33,7 @@ struct Sound {
         self.prepareToPlay = prepareToPlay
         self.thumbnailImage = thumbnailImage
         self.soundDuration = soundDuration
+        self._volume = 1.0
     }
     
     static func getSounds() -> [Sound] {
