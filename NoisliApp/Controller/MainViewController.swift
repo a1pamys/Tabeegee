@@ -65,27 +65,28 @@ class MainViewController: UICollectionViewController {
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell: SoundCell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! SoundCell
         cell.delegate = self
+        let sound = sounds![indexPath.row]
         cell.cellIndex = indexPath.row
-        cell.sliderValue = sliderValue
-        if(!sounds![indexPath.row].prepareToPlay!) {
+        cell.sliderValue = sound.volume
+        if(!sounds![indexPath.row].isPlaying!) {
+            cell.volumeSlider.isHidden = true
+            cell.thumbnailImageView.image = UIImage(named: "\(sounds![indexPath.row].soundName!)"+"-"+"b")
+            cell.thumbnailImageView.alpha = 0.4
+            sounds![indexPath.row].audioPlayer!.stop()
+            //            print(sounds![indexPath.row].audioPlayer!.currentTime)
+        } else {
             cell.volumeSlider.isHidden = false
             cell.thumbnailImageView.image = UIImage(named: "\(sounds![indexPath.row].soundName!)"+"-"+"w")
             cell.thumbnailImageView.alpha = 0.9
             print("Play: \(indexPath.row)")
             sounds![indexPath.row].audioPlayer!.play()
-//            print(sounds![indexPath.row].audioPlayer!.currentTime)
-        } else {
-            cell.volumeSlider.isHidden = true
-            cell.thumbnailImageView.image = UIImage(named: "\(sounds![indexPath.row].soundName!)"+"-"+"b")
-            cell.thumbnailImageView.alpha = 0.4
-            sounds![indexPath.row].audioPlayer!.stop()
-//            print(sounds![indexPath.row].audioPlayer!.currentTime)
+            //            print(sounds![indexPath.row].audioPlayer!.currentTime)
         }
         return cell
     }
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        sounds![indexPath.row].prepareToPlay! = !sounds![indexPath.row].prepareToPlay!
+        sounds![indexPath.row].isPlaying! = !sounds![indexPath.row].isPlaying!
 //        print(indexPath.row)
         print("reloadItemAtIndexPath: \(indexPath.row)")
         collectionView.reloadItems(at: [indexPath])
@@ -121,14 +122,15 @@ extension MainViewController: SliderValueSendable {
 }
 
 extension MainViewController: RandomGenerator {
-    func sendRandomResult(result: [Bool]) {
-        var i = 0
-        print(result)
-        while (i < (sounds?.count)!) {
-            sounds![i].prepareToPlay! = result[i]
-            i += 1
+    func sendRandomResult(result: [Float]) {
+        for i in 0..<(sounds?.count)! {
+            if (result[i] > 0.0) {
+                sounds![i].isPlaying! = false
+                sounds![i].volume = result[i]
+            } else {
+                sounds![i].isPlaying! = true
+            }
         }
         collectionView?.reloadData()
     }
 }
-

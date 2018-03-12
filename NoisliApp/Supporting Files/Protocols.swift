@@ -7,7 +7,7 @@
 //
 
 protocol RandomGenerator {
-    func sendRandomResult(result: [Bool])
+    func sendRandomResult(result: [Float])
 }
 
 protocol SliderValueSendable {

@@ -13,14 +13,22 @@ struct Sound {
     
     var soundName: String?
     var audioPlayer: AVAudioPlayer?
-    var prepareToPlay: Bool?
+    var isPlaying: Bool?
     var thumbnailImage: String?
     var soundDuration: Int?
+    var volume: Float! {
+        set {
+            self.audioPlayer?.setVolume(newValue, fadeDuration: 1)
+        }
+        get {
+            return self.audioPlayer?.volume
+        }
+    }
     
-    init(soundName: String?, audioPlayer: AVAudioPlayer?, prepareToPlay: Bool?, thumbnailImage: String?, soundDuration: Int?){
+    init(soundName: String?, audioPlayer: AVAudioPlayer?, isPlaying: Bool?, thumbnailImage: String?, soundDuration: Int?){
         self.soundName = soundName
         self.audioPlayer = audioPlayer
-        self.prepareToPlay = prepareToPlay
+        self.isPlaying = isPlaying
         self.thumbnailImage = thumbnailImage
         self.soundDuration = soundDuration
     }
@@ -32,7 +40,7 @@ struct Sound {
             for soundName in soundNames {
                 let audioPlayer = try AVAudioPlayer(contentsOf: URL.init(fileURLWithPath: Bundle.main.path(forResource: soundName, ofType: "mp3")!))
 //                audioPlayer.numberOfLoops = -1
-                sounds.append(Sound(soundName: soundName, audioPlayer: audioPlayer, prepareToPlay: true, thumbnailImage: "\(soundName)-w", soundDuration: Int(audioPlayer.duration)))
+                sounds.append(Sound(soundName: soundName, audioPlayer: audioPlayer, isPlaying: false, thumbnailImage: "\(soundName)-w", soundDuration: Int(audioPlayer.duration)))
             }
         } catch {
             print(error)

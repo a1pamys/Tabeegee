@@ -12,7 +12,16 @@ class SoundCell: UICollectionViewCell {
  
     var delegate: SliderValueSendable?
     var cellIndex = -1
-    var sliderValue: Float = 1.0
+    var _sliderValue: Float = 1.0
+    var sliderValue: Float {
+        get {
+            return _sliderValue
+        }
+        set {
+            self._sliderValue = newValue
+            self.volumeSlider.value = newValue
+        }
+    }
     
     override init(frame: CGRect) {
         super.init(frame: frame )
@@ -35,7 +44,6 @@ class SoundCell: UICollectionViewCell {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFit
         return imageView
-        
     }()
     
     @objc func sliderDidUsed() {
